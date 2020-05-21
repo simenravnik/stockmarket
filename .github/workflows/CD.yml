@@ -9,9 +9,21 @@ jobs:
   build:
     runs-on:                                              # Test environment
       - ubuntu-latest
+    strategy:                                             # Strategy
+      matrix:
+        python-version: 3.6
 
     steps:
-                                                          # Push source code to heroku
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
       - shell: bash
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
