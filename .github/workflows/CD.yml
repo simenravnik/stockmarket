@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on:                                              # Test environment
       - ubuntu-latest
+
+    steps:
                                                           # Push source code to heroku
       - shell: bash
         env:
